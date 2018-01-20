@@ -7,13 +7,13 @@ package com.lazytomatostudios.t9dialer;
 public class Contact {
 
     private String name;
-    private int phone;
+    private long phone;
 
     public Contact(){
 
     }
 
-    public Contact(String name, int phone) {
+    public Contact(String name, long phone) {
         this.name = name;
         this.phone = phone;
     }
@@ -26,11 +26,11 @@ public class Contact {
         this.name = name;
     }
 
-    public int getPhone() {
+    public long getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 }

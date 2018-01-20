@@ -38,10 +38,10 @@ public class AddActivity extends AppCompatActivity {
 
         ContentValues contentValues = new ContentValues();
 
-        int id = getCustomID(nameText.getText().toString());
+        long id = getCustomID(nameText.getText().toString());
 
         contentValues.put(DBContract.Contact.COLUMN_NAME, nameText.getText().toString());
-        contentValues.put(DBContract.Contact.COLUMN_PHONE, Integer.valueOf(phoneText.getText().toString()));
+        contentValues.put(DBContract.Contact.COLUMN_PHONE, Long.valueOf(phoneText.getText().toString()));
         contentValues.put(DBContract.Contact.COLUMN_UID, id);
 
         long newRowId = database.insert(DBContract.Contact.TABLE_NAME, null, contentValues);
@@ -49,16 +49,22 @@ public class AddActivity extends AppCompatActivity {
         Log.d("TAG", "Row inserted at : " + newRowId);
     }
 
-    public int getCustomID(String name){
+    public long getCustomID(String name){
 
-        int id = 0;
+        long id = 0;
 
         String [] t9Ref = new String [] {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
+        Log.d("GAT", String.valueOf(name.length()));
+        Log.d("GAT", String.valueOf(t9Ref.length));
+
         for (int i = 0; i < name.length(); i++) {
-            for (int j = 2; j < t9Ref.length; j++) {
-                if(t9Ref[j].contains(String.valueOf(name.charAt(i))))
-                   id = (id*10) + j;
+            for (int j = 0; j < t9Ref.length; j++) {
+                if(t9Ref[j].contains(String.valueOf(name.toLowerCase().charAt(i)))) {
+                    Log.d("FOUND", "Index : " + j + " with " + name.charAt(i) + " at " + t9Ref[j]);
+                    id = (id * 10) + j;
+                    break;
+                }
             }
         }
         Log.d("TAG", "Generated ID : " + id);

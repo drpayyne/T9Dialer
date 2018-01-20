@@ -42,7 +42,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MyViewHo
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Contact contact = contactList.get(position);
         holder.name.setText(contact.getName());
-        holder.phone.setText(contact.getPhone());
+        holder.phone.setText(String.valueOf(contact.getPhone()));
     }
 
     @Override
