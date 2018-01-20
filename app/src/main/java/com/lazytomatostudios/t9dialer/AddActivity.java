@@ -33,6 +33,7 @@ public class AddActivity extends AppCompatActivity {
         });
     }
 
+    //ADD CONTACT TO DATABASE
     public void saveToDB() {
         SQLiteDatabase database = new DBHelper(this).getWritableDatabase();
 
@@ -49,6 +50,7 @@ public class AddActivity extends AppCompatActivity {
         Log.d("TAG", "Row inserted at : " + newRowId);
     }
 
+    //GENERATES CUSTOM ID DEPENDING ON CONTACT NAME
     public long getCustomID(String name){
 
         long id = 0;

@@ -50,13 +50,16 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //GET READABLE DATABASE
         database = new DBHelper(this).getReadableDatabase();
 
+        //SET RECYCLERVIEW FOR LIST
         recyclerView = findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        //ASSIGN BUTTONS TO VARIABLES
         dialerView = findViewById(R.id.dialer);
 
         Button button1 = (Button)findViewById(R.id.btn_1);
@@ -89,8 +92,10 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
         prepareContactData(num);
     }
 
+    //GET DATA FROM DB AND REFRESH LIST
     public void prepareContactData(long num) {
 
+        //ASSIGN SELECTION VARIABLE WITH NUMBER FROM NUMPAD
         String[] selectionArgs = {String.valueOf(num) + "%"};
 
         List<Contact> contactList = new ArrayList<>();
@@ -98,9 +103,12 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
         cAdapter = new ContactAdapter(contactList);
         recyclerView.setAdapter(cAdapter);
 
+        //DISPLAY ALL
         if(num == 0) {
             cursor = database.query(DBContract.Contact.TABLE_NAME, projection, null, null, null, null, null, null);
-        } else {
+        }
+        //DISPLAY ONLY SELECTED DATA
+        else {
             cursor = database.query(DBContract.Contact.TABLE_NAME, projection, selection, selectionArgs, null, null, null, null);
         }
 
@@ -125,6 +133,7 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
             Log.d("TAG", "ID : " + id);
         }
 
+        //REFRESH ADAPTER LIST
         cAdapter.notifyDataSetChanged();
     }
 
@@ -151,6 +160,7 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
         return super.onOptionsItemSelected(item);
     }
 
+    //SET ONCLICKS FOR EACH DIALPAD NUMBER
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
