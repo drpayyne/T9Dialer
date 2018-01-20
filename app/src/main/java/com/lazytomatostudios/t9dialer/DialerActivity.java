@@ -62,6 +62,8 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
         Button button8 = (Button)findViewById(R.id.btn_8);
         Button button9 = (Button)findViewById(R.id.btn_9);
         Button button0 = (Button)findViewById(R.id.btn_0);
+        Button buttonClear = (Button)findViewById(R.id.btn_clr);
+        Button buttonBack = (Button)findViewById(R.id.btn_bck);
 
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
@@ -73,6 +75,8 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
         button8.setOnClickListener(this);
         button9.setOnClickListener(this);
         button0.setOnClickListener(this);
+        buttonClear.setOnClickListener(this);
+        buttonBack.setOnClickListener(this);
     }
 
     public void prepareContactData() {
@@ -137,52 +141,12 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_1:
-
-                // do something when the corky is clicked
-
-                break;
-            case R.id.btn_2:
-
-                // do something when the corky2 is clicked
-
-                break;
-            case R.id.btn_3:
+            case R.id.btn_clr:
 
                 // do something when the corky3 is clicked
 
                 break;
-            case R.id.btn_4:
-
-                // do something when the corky is clicked
-
-                break;
-            case R.id.btn_5:
-
-                // do something when the corky2 is clicked
-
-                break;
-            case R.id.btn_6:
-
-                // do something when the corky3 is clicked
-
-                break;
-            case R.id.btn_7:
-
-                // do something when the corky3 is clicked
-
-                break;
-            case R.id.btn_8:
-
-                // do something when the corky2 is clicked
-
-                break;
-            case R.id.btn_9:
-
-                // do something when the corky3 is clicked
-
-                break;
-            case R.id.btn_0:
+            case R.id.btn_bck:
 
                 // do something when the corky3 is clicked
 
