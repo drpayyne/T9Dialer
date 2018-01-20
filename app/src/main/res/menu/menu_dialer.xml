@@ -8,10 +8,4 @@
         android:orderInCategory="100"
         android:title="Add"
         app:showAsAction="always" />
-
-    <item
-        android:id="@+id/refresh_contact"
-        android:orderInCategory="100"
-        android:title="Refresh"
-        app:showAsAction="always" />
 </menu>

@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.lazytomatostudios.t9dialer.db.DBContract;
 import com.lazytomatostudios.t9dialer.db.DBHelper;
@@ -27,6 +28,8 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
 
     private RecyclerView recyclerView;
     private ContactAdapter cAdapter;
+
+    TextView dialerView;
 
     Cursor cursor;
 
@@ -54,6 +57,8 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        dialerView = findViewById(R.id.dialer);
+
         Button button1 = (Button)findViewById(R.id.btn_1);
         Button button2 = (Button)findViewById(R.id.btn_2);
         Button button3 = (Button)findViewById(R.id.btn_3);
@@ -64,6 +69,9 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
         Button button8 = (Button)findViewById(R.id.btn_8);
         Button button9 = (Button)findViewById(R.id.btn_9);
         Button button0 = (Button)findViewById(R.id.btn_0);
+        Button buttonBack = (Button)findViewById(R.id.btn_bck);
+        Button buttonClear = (Button)findViewById(R.id.btn_clr);
+
 
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
@@ -75,6 +83,10 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
         button8.setOnClickListener(this);
         button9.setOnClickListener(this);
         button0.setOnClickListener(this);
+        buttonClear.setOnClickListener(this);
+        buttonBack.setOnClickListener(this);
+
+        prepareContactData(num);
     }
 
     public void prepareContactData(long num) {
@@ -86,7 +98,11 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
         cAdapter = new ContactAdapter(contactList);
         recyclerView.setAdapter(cAdapter);
 
-        cursor = database.query(DBContract.Contact.TABLE_NAME, projection, selection, selectionArgs, null, null, null, null);
+        if(num == 0) {
+            cursor = database.query(DBContract.Contact.TABLE_NAME, projection, null, null, null, null, null, null);
+        } else {
+            cursor = database.query(DBContract.Contact.TABLE_NAME, projection, selection, selectionArgs, null, null, null, null);
+        }
 
         String name, phone, id;
 
@@ -130,8 +146,6 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
         if (id == R.id.add_contact) {
             Intent intent = new Intent(this, AddActivity.class);
             startActivity(intent);
-        } else if (id == R.id.refresh_contact) {
-            Log.d("TAG", "Refresing list...");
         }
 
         return super.onOptionsItemSelected(item);
@@ -142,46 +156,45 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.btn_1:
                 num = (num*10) + 1;
-                prepareContactData(num);
                 break;
             case R.id.btn_2:
                 num = (num*10) + 2;
-                prepareContactData(num);
                 break;
             case R.id.btn_3:
                 num = (num*10) + 3;
-                prepareContactData(num);
                 break;
             case R.id.btn_4:
                 num = (num*10) + 4;
-                prepareContactData(num);
                 break;
             case R.id.btn_5:
                 num = (num*10) + 5;
-                prepareContactData(num);
                 break;
             case R.id.btn_6:
                 num = (num*10) + 6;
-                prepareContactData(num);
                 break;
             case R.id.btn_7:
                 num = (num*10) + 7;
-                prepareContactData(num);
                 break;
             case R.id.btn_8:
                 num = (num*10) + 8;
-                prepareContactData(num);
                 break;
             case R.id.btn_9:
                 num = (num*10) + 9;
-                prepareContactData(num);
                 break;
             case R.id.btn_0:
                 num = (num*10);
-                prepareContactData(num);
+                break;
+            case R.id.btn_clr:
+                num = 0;
+                break;
+            case R.id.btn_bck:
+                num = num/10;
                 break;
             default:
                 break;
         }
+
+        prepareContactData(num);
+        dialerView.setText(String.valueOf(num));
     }
 }
