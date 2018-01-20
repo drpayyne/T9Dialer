@@ -30,11 +30,15 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
 
     Cursor cursor;
 
+    long num = 0;
+
     String[] projection = {
             DBContract.Contact.COLUMN_NAME,
             DBContract.Contact.COLUMN_PHONE,
             DBContract.Contact.COLUMN_UID
     };
+
+    String selection = DBContract.Contact.COLUMN_UID + " like ?";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +53,6 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        prepareContactData();
 
         Button button1 = (Button)findViewById(R.id.btn_1);
         Button button2 = (Button)findViewById(R.id.btn_2);
@@ -79,14 +81,16 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
         buttonBack.setOnClickListener(this);
     }
 
-    public void prepareContactData() {
+    public void prepareContactData(long num) {
+
+        String[] selectionArgs = {String.valueOf(num) + "%"};
 
         List<Contact> contactList = new ArrayList<>();
 
         cAdapter = new ContactAdapter(contactList);
         recyclerView.setAdapter(cAdapter);
 
-        cursor = database.query(DBContract.Contact.TABLE_NAME, projection, null, null, null, null, null, null);
+        cursor = database.query(DBContract.Contact.TABLE_NAME, projection, selection, selectionArgs, null, null, null, null);
 
         String name, phone, id;
 
@@ -132,7 +136,6 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
             startActivity(intent);
         } else if (id == R.id.refresh_contact) {
             Log.d("TAG", "Refresing list...");
-            prepareContactData();
         }
 
         return super.onOptionsItemSelected(item);
@@ -141,15 +144,45 @@ public class DialerActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_clr:
-
-                // do something when the corky3 is clicked
-
+            case R.id.btn_1:
+                num = (num*10) + 1;
+                prepareContactData(num);
                 break;
-            case R.id.btn_bck:
-
-                // do something when the corky3 is clicked
-
+            case R.id.btn_2:
+                num = (num*10) + 2;
+                prepareContactData(num);
+                break;
+            case R.id.btn_3:
+                num = (num*10) + 3;
+                prepareContactData(num);
+                break;
+            case R.id.btn_4:
+                num = (num*10) + 4;
+                prepareContactData(num);
+                break;
+            case R.id.btn_5:
+                num = (num*10) + 5;
+                prepareContactData(num);
+                break;
+            case R.id.btn_6:
+                num = (num*10) + 6;
+                prepareContactData(num);
+                break;
+            case R.id.btn_7:
+                num = (num*10) + 7;
+                prepareContactData(num);
+                break;
+            case R.id.btn_8:
+                num = (num*10) + 8;
+                prepareContactData(num);
+                break;
+            case R.id.btn_9:
+                num = (num*10) + 9;
+                prepareContactData(num);
+                break;
+            case R.id.btn_0:
+                num = (num*10);
+                prepareContactData(num);
                 break;
             default:
                 break;
